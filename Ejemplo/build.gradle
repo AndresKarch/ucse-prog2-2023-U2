@@ -11,6 +11,9 @@ repositories {
 }
 
 dependencies {
+    testImplementation 'org.openjdk.jmh:jmh-core:1.33'
+    testAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.33'
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'org.mockito:mockito-junit-jupiter:5.4.0'
@@ -36,4 +39,10 @@ jacoco {
 
 tasks.test {
     finalizedBy jacocoTestReport
+}
+
+tasks.register('runJmh', JavaExec) {
+    main = 'org.openjdk.jmh.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-f', '1', '-wi', '5', '-i', '5', '-r', '5', '-t', '1', '.*StreamBenchmarkTest.*']
 }
