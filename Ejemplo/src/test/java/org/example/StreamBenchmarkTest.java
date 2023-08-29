@@ -1,5 +1,6 @@
 package org.example;
 
+import org.jetbrains.annotations.NotNull;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
@@ -40,7 +41,7 @@ public class StreamBenchmarkTest {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void sequentialStreamFilter(Blackhole blackhole) {
+    public void sequentialStreamFilter(@NotNull Blackhole blackhole) {
         List<Integer> result = list.stream()
                 .filter(n -> n % 2 == 0)
                 .collect(Collectors.toList());
@@ -50,7 +51,7 @@ public class StreamBenchmarkTest {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void parallelStreamFilter(Blackhole blackhole) {
+    public void parallelStreamFilter(@org.jetbrains.annotations.NotNull Blackhole blackhole) {
         List<Integer> result = list.parallelStream()
                 .filter(n -> n % 2 == 0)
                 .collect(Collectors.toList());
